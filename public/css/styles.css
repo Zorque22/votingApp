@@ -1,0 +1,96 @@
+body{
+  background-image:url(https://images.unsplash.com/photo-1474983797926-3939622ca489?auto=format&fit=crop&w=1500&q=80);
+  /* credits of the image (Cliffs of Moher, Liscannor, Ireland) go to Vincent Guth */
+  background-color: #0c2b5e;
+}
+#navWrapper{
+  height:20px;
+}
+.pull-right{
+  margin-right:5px;
+}
+.titleWrapper{
+  margin-top:10px;
+  height:100px;
+  width:100%;
+  /* text-align:center; */
+  padding:10px;
+  color:white;
+}
+#signUpDiv{
+  text-align: center;
+}
+#signUpWrapper{
+  text-align: center;
+  display:block;
+  margin-top:30px;
+  /* display:none; */
+}
+#loginWrapper{
+  text-align: center;
+  display:block;
+  margin-top:30px;
+  display:none;
+}
+#signUpWrapper label{
+  width:70px;
+  text-align: left;
+}
+#loginWrapper label{
+  width:70px;
+  text-align: left;
+}
+.inputFields{
+  width:400px;
+  margin:auto;
+  padding:10px;
+}
+.inputWidth{
+  width:100%;
+}
+.nav{
+  color:black;
+  /* width:600px; */
+}
+#welcomeWrapper{
+  height:300px;
+  width:50%;
+  text-align:center;
+  display:none;
+  /* margin-top:0; */
+}
+#welcomeWrapper button:focus{
+  font-weight: bold;
+  border:1px solid black;
+}
+#newPoll{
+  margin-top:10px;
+  text-align: center;
+  /* color:white; */
+  /* display:none; */
+}
+#newPoll .btn{
+  margin-top:20px;
+  width:200px;
+}
+
+#myPolls{
+  margin-top:10px;
+}
+
+
+.navbar {
+  border-radius: 0;
+}
+
+input {
+  padding: 3px 5px;
+}
+
+.btn-attached-left {
+  margin-right: 5px;
+}
+
+.btn-attached-right {
+  margin-left: 5px;
+}
