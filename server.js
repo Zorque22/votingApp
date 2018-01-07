@@ -6,7 +6,8 @@ const userPoll = require('./models/userPoll.js')
 const bcrypt = require('bcrypt');
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/userpolls', { useMongoClient: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://zorque:zorquePassword@ds247077.mlab.com:47077/heroku_jrtp7qvc', { useMongoClient: true });
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/userpolls', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 app.use(express.static('public'));
