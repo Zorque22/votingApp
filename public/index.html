@@ -33,15 +33,15 @@
         <h3>New account</h3>
         <div>
           <label for='inputName'>Name:</label>
-          <input id='name' type='text' class='inputWidth' placeholder='Enter Name' name='inputName' autofocus><br>
+          <input id='signUpName' type='text' class='inputWidth' placeholder='Enter Name' name='inputName' autofocus><br>
           <br>
           <label for='inputEmail'>Email:</label>
-          <input id='email' type='text' class='inputWidth' placeholder='Enter Email Adress' name='inputEmail'/><br>
+          <input id='signUpEmail' type='text' class='inputWidth' placeholder='Enter Email Adress' name='inputEmail'/><br>
           <br>
           <label for='inputPassword'>Password:</label>
-          <input id='password' type='text' class='inputWidth' placeholder='Password' name='inputPassword'/>
+          <input id='signUpPassword' type='text' class='inputWidth' placeholder='Password' name='inputPassword'/>
           <hr>
-          <button id='signUpSubmitBtn' class='btn btn-primary btn-block'>Sign me up!</button>
+          <button id='signUpSubmitBtn' class='btn btn-primary btn-block emailCheck'>Sign me up!</button>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
         <label for='inputPassword'>Password:</label>
         <input id='inlogPassword' type='password' class='inputWidth' placeholder='Password' name='inputPassword'/>
         <hr>
-        <button id='loginBtn2' class='btn btn-primary btn-block'>Log me in!</button>
+        <button id='loginSubmitBtn' class='btn btn-primary btn-block emailCheck'>Log me in!</button>
       </div>
     </div>
     <div id='welcomeWrapper' class='center-block'>
@@ -73,7 +73,7 @@
               <div id='newPoll' class='well tab-pane active'>
                 <h3 id='title'>New Poll</h3>
                 <p>Name your poll.</p>
-                <input type='text' placeholder='What do you want to ask?'><br>
+                <input id='pollname' type='text' placeholder='What do you want to ask?'><br>
                 <h2>Options</h2>
                 <div id='options'>
                   <input type='text' placeholder='Option 1'><br>
@@ -83,15 +83,11 @@
                 </div>
                 <button id='moreOptions' class='btn btn-success'><span class="glyphicon glyphicon-plus btn-attached-left"></span>More Options</button>
                 <br>
-                <button id='submitOptions' class='btn btn-primary'>Submit</button>
+                <button id='submitPoll' class='btn btn-primary'>Submit</button>
               </div>
 
               <div id='myPolls' class='well tab-pane'>
-                <ul>
-                  <li>
-                    boe
-                  </li>
-                </ul>
+                <ul id='idList'></ul>
               </div>
 
           </div>
