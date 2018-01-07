@@ -65,7 +65,8 @@ $(document).ready(function(){
   });
   $('#loginSubmitBtn').click(function(){
     $.post(
-      'http://localhost:3000/login',
+      'https://zorque-votingapp.herokuapp.com//login',
+      // 'http://localhost:3000/login',
       {
         email:$('#inlogEmail').val(),
         password:$('#inlogPassword').val()
@@ -95,7 +96,8 @@ $(document).ready(function(){
       poll.options.push({description:$(optionsInput[i]).val(), voteCount:0});
     }
     $.post(
-      'http://localhost:3000/submitpoll',
+      'https://zorque-votingapp.herokuapp.com/submitpoll',
+      // 'http://localhost:3000/submitpoll',
       { id:userId,
         poll:poll
       },
