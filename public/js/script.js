@@ -38,7 +38,8 @@ $(document).ready(function(){
     if(emailCheck($('#signUpEmail').val())){
     // // post to server
       $.post(
-        'http://localhost:3000/signup',
+        'https://zorque-votingapp.herokuapp.com/signup',
+        // 'http://localhost:3000/signup',
         {
           username:$('#signUpName').val(),
           email:$('#signUpEmail').val(),
