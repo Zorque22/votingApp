@@ -135,10 +135,9 @@ $(document).ready(function(){
    });
 
   $('#moreOptions').click(function(){
-    $('#options').append('<input type="text" placeholder="Option"><br><br>')
+    $('#options').append('<input type="text" placeholder="Option">')
   });
   $('#closeNewUrl').click(function(){
-    // console.log('closeNewUrl');
     toggleShow(['#newPollUrlWrapper'], ['#welcomeWrapper']);
   });
   $('#logoutBtn').click(function(){
@@ -156,10 +155,4 @@ $(document).ready(function(){
     );
     $(this).parent().remove();
   });
-  // $(document).on('click', '#savePoll', function(event){
-  // $('#savePoll').click(function(){
-  //   // var choice = $('input[name=option]:checked').val();
-  //   console.log('uw keuze = ');
-  // })
-
-})
+  })

@@ -125,3 +125,7 @@ input {
 #savePoll{
   margin-top:20px;
 }
+.pollOptions input{
+  margin:0 auto 20px;
+  display:block;
+}

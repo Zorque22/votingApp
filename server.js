@@ -18,7 +18,6 @@ app.post('/signup', function(req,res){
   userPoll.findOne({email:req.body.email}).then(function(data){
     if(data){
       res.json({'errorMessage':'Email address already signed up'});
-      // res.status(401).send('Email address already bla bla');
     } else {
       bcrypt.hash(req.body.password, 8, function(err, passwordHash){
         if(err){
