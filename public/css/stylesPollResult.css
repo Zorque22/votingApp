@@ -1,4 +1,9 @@
 .resultsWrapper{
-  height:200;
+  height:200px !important;
   width:50%;
+}
+
+#myChart {
+  height: 500px !important;
+  width: auto !important;
 }
