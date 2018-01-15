@@ -1,0 +1,17 @@
+doctype
+head
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet")
+  link(href='/css/styles.css', rel='stylesheet')
+  title boe
+body
+.titleWrapper.text-center
+  h1.title FCC Voting App
+  #options.voteWrapper.well.center-block
+    h3 #{pollData.polls[0].pollName}?
+    form(name='vote', action='/vote/#{pollData.polls[0].pollName}', method='post')
+      for poll in pollData.polls[0].options
+        input(type='radio', name='option', value='#{poll.description}')
+        |#{poll.description}
+        br
+      input#savePoll(type='submit', value='Vote!')

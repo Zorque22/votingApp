@@ -2,39 +2,47 @@ $(document).ready(function(){
   var userId;
   // console.log('initialize var userId = '+userId)
   function toggleShow(hideDiv, showDiv){
-    $(hideDiv).removeClass('show').addClass('hidden');
-    $(showDiv).removeClass('hidden').addClass('show');
-  }
+    // console.log('toggleShow')
+    for(var i=0;i<hideDiv.length;i++){
+      $(hideDiv[i]).removeClass('show').addClass('hidden');
+    }
+    for(var j=0;j<showDiv.length;j++){
+      $(showDiv[j]).removeClass('hidden').addClass('show');
+    }
+  };
   function emailCheck(email){
     const emailChck = new RegExp(/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/);
-    // console.log('emailCheck; email = '+email);
-    // console.log('emailCheck result: '+emailChck.test(email));
     if(emailChck.test(email)){
-      // console.log('emailCheck; return true');
       return true;
     } else {
-      // console.log('emailCheck; return false');
       return false;
     }
-  }
+  };
+  function appendMyPoll(pollName, pollId){
+    $('#idList').append('<li id="'+pollId+'"><a href="https://zorque-votingapp.herokuapp.com/poll/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
+    // $('#idList').append('<li id="'+pollId+'"><a href="http://localhost:3000/poll/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
+  };
   $('.goSignUp').click(function(){
-    toggleShow('#signUpDiv', '#signUpWrapper');
-    // $('#signUpDiv').hide();
-    // $('#signUpWrapper').removeClass('hidden').addClass('show');
-    $('#loginBtn, #signUpBtn').attr('disabled', 'disabled');
+    if($('#loginWrapper').hasClass('show')){
+      toggleShow(['#loginWrapper'], ['#signUpWrapper']);
+    } else {
+      toggleShow(['#signUpDiv'], ['#signUpWrapper']);
+    }
   });
   $('#loginBtn').click(function(){
-    // alert('loginbuttn')
-    toggleShow('#signUpDiv', '#loginWrapper');
-    // $('#signUpDiv').hide();
-    // $('#loginWrapper').removeClass('hidden').addClass('show');
-    $('#loginBtn, #signUpBtn').attr('disabled', 'disabled');
+    if($('#signUpWrapper').hasClass('show')){
+      toggleShow(['#signUpWrapper'], ['#loginWrapper']);
+    } else {
+      toggleShow(['#signUpDiv'], ['#loginWrapper']);
+    }
   });
 
   $('#signUpSubmitBtn').click(function(){
-    // console.log('name = '+$('#name').val()+'; email = '+$('#email').val()+'; password = '+$('#password').val())
     // verify email format
-    // console.log('call emailCheck met email: '+$('#signUpEmail').val())
+    console.log('signUpSubmitBtn');
+    if($('.errMsg')){
+      $('.errMsg').remove()
+    }
     if(emailCheck($('#signUpEmail').val())){
     // // post to server
       $.post(
@@ -42,59 +50,62 @@ $(document).ready(function(){
         // 'http://localhost:3000/signup',
         {
           username:$('#signUpName').val(),
-          email:$('#signUpEmail').val(),
+          email:$('#signUpEmail').val().toLowerCase(),
           password:$('#signUpPassword').val(),
           polls:[]
         },
         function(data){
+          console.log(data);
           if(data.errorMessage){
-              alert('Email address already signed up!');
+            $('#signUpEmailWrapper').append('<p class="errMsg">'+data.errorMessage+'</p>');
           } else {
-            // console.log('data._id = '+data._id);
             userId = data._id;
-            // console.log('signup userId = '+userId);
-            toggleShow('#signUpWrapper', '#welcomeWrapper');
-            // $('#signUpWrapper').removeClass('show').addClass('hidden');
-            // $('#welcomeWrapper').removeClass('hidden').addClass('show');
+            toggleShow(['#signUpWrapper', '#loginBtn', '#signUpBtn'], ['#welcomeWrapper', '#logoutBtn', '#loginName']);
+            $('#loginName').text(data.userName);
           }
         },
         'json'
       );
     } else {
-      alert('Invalid email format.')
+      $('#signUpEmailWrapper').append('<p class="errMsg">Invalid email format</p>');
     }
   });
   $('#loginSubmitBtn').click(function(){
+    if($('.errMsg')){
+      $('.errMsg').remove()
+    }
     $.post(
       'https://zorque-votingapp.herokuapp.com//login',
       // 'http://localhost:3000/login',
       {
-        email:$('#inlogEmail').val(),
+        email:$('#inlogEmail').val().toLowerCase(),
         password:$('#inlogPassword').val()
       },
       function(data){
         if(data.errorMessage){
-            alert(data.errorMessage);
+          $('#inlogPasswordWrapper').append('<p class="errMsg">'+data.errorMessage+'</p>');
         } else {
           userId = data._id;
-          console.log(data.polls);
           for(var i=0;i<data.polls.length;i++){
-            $('#idList').append('<li><a href="localhost:3000/'+data.polls[i].pollName.replace(/ /g,"_")+'" target="_blank">'+data.polls[i].pollName+'</a></li>');
+            appendMyPoll(data.polls[i].pollName, data.polls[i]._id);
           }
-          // console.log('signin userId = '+userId);
-          toggleShow('#loginWrapper', '#welcomeWrapper');
-          // $('#loginWrapper').removeClass('show').addClass('hidden');
-          // $('#welcomeWrapper').removeClass('hidden').addClass('show');
+          toggleShow(['#loginWrapper', '#loginBtn', '#signUpBtn'], ['#welcomeWrapper', '#logoutBtn', '#loginName']);
+          $('#loginName').text(data.userName);
         }
       },
       'json'
     );
   });
   $('#submitPoll').click(function(){
-    var poll = {pollName:$('#pollname').val(), options:[]};
+    if($('.errMsg')){
+      $('.errMsg').remove()
+    }
+    var poll = {pollName:$('#pollName').val().replace(/\?/g,'').toLowerCase(), options:[]};
     var optionsInput = $('#options').find('input');
     for(var i=0;i<optionsInput.length;i++){
-      poll.options.push({description:$(optionsInput[i]).val(), voteCount:0});
+      if($(optionsInput[i]).val()!=''){
+        poll.options.push({description:$(optionsInput[i]).val(), voteCount:0});
+      }
     }
     $.post(
       'https://zorque-votingapp.herokuapp.com/submitpoll',
@@ -103,16 +114,19 @@ $(document).ready(function(){
         poll:poll
       },
       function(data){
-        alert(data.pollName)
         if(data.errorMessage){
-            alert(data.errorMessage);
+          $('#pollNameWrapper').append('<p class="errMsg">'+data.errorMessage+'</p>')
         } else {
-          $('#newPoll').find('input').val('');
-          alert('New poll successfully posted at '+data.pollName);
-          toggleShow('#loginWrapper', '#welcomeWrapper');
-          $('#idList').append('<li><a href="localhost:3000/'+data.pollName+'">'+data.pollName+'</a></li>');
-          // $('#loginWrapper').removeClass('show').addClass('hidden');
-          // $('#welcomeWrapper').removeClass('hidden').addClass('show');
+          $('#msg').text('Your poll has been posted to https://zorque-votingapp.herokuapp.com/poll/'+data.pollName);
+          // $('#msg').text('Your poll has been posted to http://localhost:3000/poll/'+data.pollName);
+          appendMyPoll(data.pollName, data.pollId);
+          $('#pollName').val('');
+          $('#options').find('input').val('');
+          // reduce no of options back to 2
+          while($('#options').find('input').length>2){
+            $('#options input').last().remove();
+          }
+          toggleShow(['#welcomeWrapper'], ['#newPollUrlWrapper']);
         }
       },
       'json'
@@ -120,7 +134,31 @@ $(document).ready(function(){
    });
 
   $('#moreOptions').click(function(){
-    $('#options').append('<input type="text" placeholder="Option"><br>')
+    $('#options').append('<input type="text" placeholder="Option"><br><br>')
   });
+  $('#closeNewUrl').click(function(){
+    // console.log('closeNewUrl');
+    toggleShow(['#newPollUrlWrapper'], ['#welcomeWrapper']);
+  });
+  $('#logoutBtn').click(function(){
+    location.reload();
+  });
+
+  $(document).on('click', '.delBtn', function(event){
+    $.post(
+      'https://zorque-votingapp.herokuapp.com/deletepoll',
+      // 'http://localhost:3000/deletepoll',
+      { userId:userId,
+        pollId:$(this).parent().attr('id')
+      },
+      'json'
+    );
+    $(this).parent().remove();
+  });
+  // $(document).on('click', '#savePoll', function(event){
+  // $('#savePoll').click(function(){
+  //   // var choice = $('input[name=option]:checked').val();
+  //   console.log('uw keuze = ');
+  // })
 
 })

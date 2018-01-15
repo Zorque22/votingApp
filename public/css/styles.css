@@ -57,7 +57,18 @@ body{
   width:50%;
   text-align:center;
   display:none;
-  /* margin-top:0; */
+}
+.wrapper{
+  height:300px;
+  width:50%;
+  text-align:center;
+  color:black;
+}
+.voteWrapper{
+  height:900px;
+  width:30%;
+  text-align:left;
+  color:black;
 }
 #welcomeWrapper button:focus{
   font-weight: bold;
@@ -66,8 +77,6 @@ body{
 #newPoll{
   margin-top:10px;
   text-align: center;
-  /* color:white; */
-  /* display:none; */
 }
 #newPoll .btn{
   margin-top:20px;
@@ -76,13 +85,15 @@ body{
 
 #myPolls{
   margin-top:10px;
+  text-align: left;
 }
-
 
 .navbar {
   border-radius: 0;
 }
-
+.nav-link{
+  color:white;
+}
 input {
   padding: 3px 5px;
 }
@@ -93,4 +104,24 @@ input {
 
 .btn-attached-right {
   margin-left: 5px;
+}
+#loginName{
+  float:left;
+  margin-left:20px;
+  margin-top:15px;
+}
+.delBtn{
+  float:right;
+}
+#idList{
+  list-style:none;
+}
+#idList li{
+  height:50px;
+}
+.errMsg{
+  color:red;
+}
+#savePoll{
+  margin-top:20px;
 }

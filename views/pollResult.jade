@@ -1,0 +1,19 @@
+doctype
+head
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js')
+  script(src='/js/scriptPollResult.js')
+  link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet")
+  link(href='/css/stylesPollResult.css', rel='stylesheet')
+  //-script(type='text/javascript' src='public/js/scriptPollResult.js')
+  script.
+    console.log('hello blurp')
+    var pollName = '#{pollName}'
+    var options = !{JSON.stringify(pollOptions)}
+
+  title Result
+body
+div.resultsWrapper.center-block
+  h1
+    |#{pollName}?
+  canvas#myChart(width="400" height="400")
