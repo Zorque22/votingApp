@@ -19,8 +19,8 @@ $(document).ready(function(){
     }
   };
   function appendMyPoll(pollName, pollId){
-    $('#idList').append('<li id="'+pollId+'"><a href="https://zorque-votingapp.herokuapp.com/poll/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
-    // $('#idList').append('<li id="'+pollId+'"><a href="http://localhost:3000/poll/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
+    $('#idList').append('<li id="'+pollId+'"><a href="https://zorque-votingapp.herokuapp.com/stats/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
+    // $('#idList').append('<li id="'+pollId+'"><a href="http://localhost:3000/stats/'+pollName+'" target="_blank">'+pollName+'</a><button class="btn btn-danger delBtn"><span class="glyphicon glyphicon-trash"></span></button></li>');
   };
   $('.goSignUp').click(function(){
     if($('#loginWrapper').hasClass('show')){

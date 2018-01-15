@@ -132,6 +132,19 @@ app.post('/vote/:pollName', function(req, res){
     }
   });
 })
+
+app.get('/stats/:pollName', function(req, res){
+  var pollName = req.params.pollName;
+  userPoll.findOne({polls:{$elemMatch:{pollName:req.params.pollName}}}).then(function(data){
+    for(var i=data.polls.length-1;i>=0;i--){
+      if(data.polls[i].pollName != pollName){
+        data.polls.splice(i,1);
+      }
+    }
+    res.render('pollResult', {pollName:data.polls[0].pollName, pollOptions:data.polls[0].options});
+  });
+})
+
 app.listen(process.env.PORT||3000, function(){
   console.log('Server running on port 3000...');
 });
