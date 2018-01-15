@@ -75,7 +75,7 @@ $(document).ready(function(){
       $('.errMsg').remove()
     }
     $.post(
-      'https://zorque-votingapp.herokuapp.com//login',
+      'https://zorque-votingapp.herokuapp.com/login',
       // 'http://localhost:3000/login',
       {
         email:$('#inlogEmail').val().toLowerCase(),
@@ -83,6 +83,7 @@ $(document).ready(function(){
       },
       function(data){
         if(data.errorMessage){
+          console.log('errorMsg: '+data.errorMessage);
           $('#inlogPasswordWrapper').append('<p class="errMsg">'+data.errorMessage+'</p>');
         } else {
           userId = data._id;
